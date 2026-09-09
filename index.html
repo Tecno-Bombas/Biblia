@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mi Biblia — Plan de 365 días</title>
+<style>
+:root { --bg:#f5f3ee; --card:#fff; --ink:#25231f; --muted:#77716a; --accent:#6d7b5b; --line:#e7e2da; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.wrap { max-width:760px; margin:auto; padding:22px 14px 50px; }
+.hero { background:var(--card); border-radius:22px; padding:22px; box-shadow:0 4px 18px #0000000d; margin-bottom:14px; }
+h1 { margin:0 0 6px; font-size:28px; }
+.sub { color:var(--muted); margin-bottom:18px; }
+.progress { height:12px; background:#ebe7df; border-radius:99px; overflow:hidden; }
+.bar { height:100%; width:0; background:var(--accent); transition:.25s; }
+.stats { display:flex; justify-content:space-between; margin-top:10px; color:var(--muted); font-size:14px; }
+.controls { display:flex; gap:8px; margin:14px 0; }
+input[type=search] { flex:1; border:1px solid var(--line); border-radius:14px; padding:12px 14px; font-size:16px; }
+button { border:1px solid var(--line); background:var(--card); border-radius:14px; padding:10px 13px; font-weight:600; }
+.day { display:grid; grid-template-columns:24px 42px 86px 1fr; gap:8px; align-items:center; background:var(--card); border:1px solid var(--line); padding:11px 12px; margin:6px 0; border-radius:15px; cursor:pointer; }
+.day.done { opacity:.55; }
+.day.done .reading { text-decoration:line-through; }
+.day.today { outline:2px solid var(--accent); }
+.num { font-weight:800; color:var(--accent); }
+.date { color:var(--muted); font-size:13px; }
+.reading { font-weight:600; }
+@media(max-width:560px) {
+  .day { grid-template-columns:24px 38px 74px 1fr; font-size:14px; }
+  .date { font-size:12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>📖 Mi Biblia — 365 días</h1>
+    <div class="sub">Empezás el 09/09/2026 y terminás el 08/09/2027. Marcá cada día cuando termines.</div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="stats"><span id="count">0 de 365 días</span><span id="pct">0%</span></div>
+  </section>
+  <div class="controls">
+    <input id="search" type="search" placeholder="Buscar libro o capítulo…">
+    <button id="today">Hoy</button>
+    <button id="reset">Reiniciar</button>
+  </div>
+  <main id="list"><label class="day" data-text="juan 1–4" data-date="2026-09-09">
+            <input type="checkbox" data-day="1">
+            <span class="num">1</span>
+            <span class="date">09/09/2026</span>
+            <span class="reading">Juan 1–4</span>
+        </label><label class="day" data-text="juan 5–8" data-date="2026-09-10">
+            <input type="checkbox" data-day="2">
+            <span class="num">2</span>
+            <span class="date">10/09/2026</span>
+            <span class="reading">Juan 5–8</span>
+        </label><label class="day" data-text="juan 9–12" data-date="2026-09-11">
+            <input type="checkbox" data-day="3">
+            <span class="num">3</span>
+            <span class="date">11/09/2026</span>
+            <span class="reading">Juan 9–12</span>
+        </label><label class="day" data-text="juan 13–16" data-date="2026-09-12">
+            <input type="checkbox" data-day="4">
+            <span class="num">4</span>
+            <span class="date">12/09/2026</span>
+            <span class="reading">Juan 13–16</span>
+        </label><label class="day" data-text="juan 17–20" data-date="2026-09-13">
+            <input type="checkbox" data-day="5">
+            <span class="num">5</span>
+            <span class="date">13/09/2026</span>
+            <span class="reading">Juan 17–20</span>
+        </label><label class="day" data-text="juan 21 + marcos 1–3" data-date="2026-09-14">
+            <input type="checkbox" data-day="6">
+            <span class="num">6</span>
+            <span class="date">14/09/2026</span>
+            <span class="reading">Juan 21 + Marcos 1–3</span>
+        </label><label class="day" data-text="marcos 4–7" data-date="2026-09-15">
+            <input type="checkbox" data-day="7">
+            <span class="num">7</span>
+            <span class="date">15/09/2026</span>
+            <span class="reading">Marcos 4–7</span>
+        </label><label class="day" data-text="marcos 8–11" data-date="2026-09-16">
+            <input type="checkbox" data-day="8">
+            <span class="num">8</span>
+            <span class="date">16/09/2026</span>
+            <span class="reading">Marcos 8–11</span>
+        </label><label class="day" data-text="marcos 12–15" data-date="2026-09-17">
+            <input type="checkbox" data-day="9">
+            <span class="num">9</span>
+            <span class="date">17/09/2026</span>
+            <span class="reading">Marcos 12–15</span>
+        </label><label class="day" data-text="marcos 16 + lucas 1–3" data-date="2026-09-18">
+            <input type="checkbox" data-day="10">
+            <span class="num">10</span>
+            <span class="date">18/09/2026</span>
+            <span class="reading">Marcos 16 + Lucas 1–3</span>
+        </label><label class="day" data-text="lucas 4–7" data-date="2026-09-19">
+            <input type="checkbox" data-day="11">
+            <span class="num">11</span>
+            <span class="date">19/09/2026</span>
+            <span class="reading">Lucas 4–7</span>
+        </label><label class="day" data-text="lucas 8–11" data-date="2026-09-20">
+            <input type="checkbox" data-day="12">
+            <span class="num">12</span>
+            <span class="date">20/09/2026</span>
+            <span class="reading">Lucas 8–11</span>
+        </label><label class="day" data-text="lucas 12–15" data-date="2026-09-21">
+            <input type="checkbox" data-day="13">
+            <span class="num">13</span>
+            <span class="date">21/09/2026</span>
+            <span class="reading">Lucas 12–15</span>
+        </label><label class="day" data-text="lucas 16–19" data-date="2026-09-22">
+            <input type="checkbox" data-day="14">
+            <span class="num">14</span>
+            <span class="date">22/09/2026</span>
+            <span class="reading">Lucas 16–19</span>
+        </label><label class="day" data-text="lucas 20–23" data-date="2026-09-23">
+            <input type="checkbox" data-day="15">
+            <span class="num">15</span>
+            <span class="date">23/09/2026</span>
+            <span class="reading">Lucas 20–23</span>
+        </label><label class="day" data-text="lucas 24 + mateo 1–3" data-date="2026-09-24">
+            <input type="checkbox" data-day="16">
+            <span class="num">16</span>
+            <span class="date">24/09/2026</span>
+            <span class="reading">Lucas 24 + Mateo 1–3</span>
+        </label><label class="day" data-text="mateo 4–7" data-date="2026-09-25">
+            <input type="checkbox" data-day="17">
+            <span class="num">17</span>
+            <span class="date">25/09/2026</span>
+            <span class="reading">Mateo 4–7</span>
+        </label><label class="day" data-text="mateo 8–11" data-date="2026-09-26">
+            <input type="checkbox" data-day="18">
+            <span class="num">18</span>
+            <span class="date">26/09/2026</span>
+            <span class="reading">Mateo 8–11</span>
+        </label><label class="day" data-text="mateo 12–15" data-date="2026-09-27">
+            <input type="checkbox" data-day="19">
+            <span class="num">19</span>
+            <span class="date">27/09/2026</span>
+            <span class="reading">Mateo 12–15</span>
+        </label><label class="day" data-text="mateo 16–19" data-date="2026-09-28">
+            <input type="checkbox" data-day="20">
+            <span class="num">20</span>
+            <span class="date">28/09/2026</span>
+            <span class="reading">Mateo 16–19</span>
+        </label><label class="day" data-text="mateo 20–23" data-date="2026-09-29">
+            <input type="checkbox" data-day="21">
+            <span class="num">21</span>
+            <span class="date">29/09/2026</span>
+            <span class="reading">Mateo 20–23</span>
+        </label><label class="day" data-text="mateo 24–27" data-date="2026-09-30">
+            <input type="checkbox" data-day="22">
+            <span class="num">22</span>
+            <span class="date">30/09/2026</span>
+            <span class="reading">Mateo 24–27</span>
+        </label><label class="day" data-text="mateo 28 + hechos 1–3" data-date="2026-10-01">
+            <input type="checkbox" data-day="23">
+            <span class="num">23</span>
+            <span class="date">01/10/2026</span>
+            <span class="reading">Mateo 28 + Hechos 1–3</span>
+        </label><label class="day" data-text="hechos 4–7" data-date="2026-10-02">
+            <input type="checkbox" data-day="24">
+            <span class="num">24</span>
+            <span class="date">02/10/2026</span>
+            <span class="reading">Hechos 4–7</span>
+        </label><label class="day" data-text="hechos 8–11" data-date="2026-10-03">
+            <input type="checkbox" data-day="25">
+            <span class="num">25</span>
+            <span class="date">03/10/2026</span>
+            <span class="reading">Hechos 8–11</span>
+        </label><label class="day" data-text="hechos 12–15" data-date="2026-10-04">
+            <input type="checkbox" data-day="26">
+            <span class="num">26</span>
+            <span class="date">04/10/2026</span>
+            <span class="reading">Hechos 12–15</span>
+        </label><label class="day" data-text="hechos 16–19" data-date="2026-10-05">
+            <input type="checkbox" data-day="27">
+            <span class="num">27</span>
+            <span class="date">05/10/2026</span>
+            <span class="reading">Hechos 16–19</span>
+        </label><label class="day" data-text="hechos 20–23" data-date="2026-10-06">
+            <input type="checkbox" data-day="28">
+            <span class="num">28</span>
+            <span class="date">06/10/2026</span>
+            <span class="reading">Hechos 20–23</span>
+        </label><label class="day" data-text="hechos 24–27" data-date="2026-10-07">
+            <input type="checkbox" data-day="29">
+            <span class="num">29</span>
+            <span class="date">07/10/2026</span>
+            <span class="reading">Hechos 24–27</span>
+        </label><label class="day" data-text="hechos 28 + santiago 1–3" data-date="2026-10-08">
+            <input type="checkbox" data-day="30">
+            <span class="num">30</span>
+            <span class="date">08/10/2026</span>
+            <span class="reading">Hechos 28 + Santiago 1–3</span>
+        </label><label class="day" data-text="santiago 4–5 + 1 pedro 1–2" data-date="2026-10-09">
+            <input type="checkbox" data-day="31">
+            <span class="num">31</span>
+            <span class="date">09/10/2026</span>
+            <span class="reading">Santiago 4–5 + 1 Pedro 1–2</span>
+        </label><label class="day" data-text="1 pedro 3–5 + 2 pedro 1" data-date="2026-10-10">
+            <input type="checkbox" data-day="32">
+            <span class="num">32</span>
+            <span class="date">10/10/2026</span>
+            <span class="reading">1 Pedro 3–5 + 2 Pedro 1</span>
+        </label><label class="day" data-text="2 pedro 2–3 + 1 juan 1–2" data-date="2026-10-11">
+            <input type="checkbox" data-day="33">
+            <span class="num">33</span>
+            <span class="date">11/10/2026</span>
+            <span class="reading">2 Pedro 2–3 + 1 Juan 1–2</span>
+        </label><label class="day" data-text="1 juan 3–5 + 2 juan 1" data-date="2026-10-12">
+            <input type="checkbox" data-day="34">
+            <span class="num">34</span>
+            <span class="date">12/10/2026</span>
+            <span class="reading">1 Juan 3–5 + 2 Juan 1</span>
+        </label><label class="day" data-text="3 juan 1 + judas 1 + génesis 1–2" data-date="2026-10-13">
+            <input type="checkbox" data-day="35">
+            <span class="num">35</span>
+            <span class="date">13/10/2026</span>
+            <span class="reading">3 Juan 1 + Judas 1 + Génesis 1–2</span>
+        </label><label class="day" data-text="génesis 3–6" data-date="2026-10-14">
+            <input type="checkbox" data-day="36">
+            <span class="num">36</span>
+            <span class="date">14/10/2026</span>
+            <span class="reading">Génesis 3–6</span>
+        </label><label class="day" data-text="génesis 7–10" data-date="2026-10-15">
+            <input type="checkbox" data-day="37">
+            <span class="num">37</span>
+            <span class="date">15/10/2026</span>
+            <span class="reading">Génesis 7–10</span>
+        </label><label class="day" data-text="génesis 11–14" data-date="2026-10-16">
+            <input type="checkbox" data-day="38">
+            <span class="num">38</span>
+            <span class="date">16/10/2026</span>
+            <span class="reading">Génesis 11–14</span>
+        </label><label class="day" data-text="génesis 15–18" data-date="2026-10-17">
+            <input type="checkbox" data-day="39">
+            <span class="num">39</span>
+            <span class="date">17/10/2026</span>
+            <span class="reading">Génesis 15–18</span>
+        </label><label class="day" data-text="génesis 19–22" data-date="2026-10-18">
+            <input type="checkbox" data-day="40">
+            <span class="num">40</span>
+            <span class="date">18/10/2026</span>
+            <span class="reading">Génesis 19–22</span>
+        </label><label class="day" data-text="génesis 23–26" data-date="2026-10-19">
+            <input type="checkbox" data-day="41">
+            <span class="num">41</span>
+            <span class="date">19/10/2026</span>
+            <span class="reading">Génesis 23–26</span>
+        </label><label class="day" data-text="génesis 27–30" data-date="2026-10-20">
+            <input type="checkbox" data-day="42">
+            <span class="num">42</span>
+            <span class="date">20/10/2026</span>
+            <span class="reading">Génesis 27–30</span>
+        </label><label class="day" data-text="génesis 31–34" data-date="2026-10-21">
+            <input type="checkbox" data-day="43">
+            <span class="num">43</span>
+            <span class="date">21/10/2026</span>
+            <span class="reading">Génesis 31–34</span>
+        </label><label class="day" data-text="génesis 35–38" data-date="2026-10-22">
+            <input type="checkbox" data-day="44">
+            <span class="num">44</span>
+            <span class="date">22/10/2026</span>
+            <span class="reading">Génesis 35–38</span>
+        </label><label class="day" data-text="génesis 39–42" data-date="2026-10-23">
+            <input type="checkbox" data-day="45">
+            <span class="num">45</span>
+            <span class="date">23/10/2026</span>
+            <span class="reading">Génesis 39–42</span>
+        </label><label class="day" data-text="génesis 43–46" data-date="2026-10-24">
+            <input type="checkbox" data-day="46">
+            <span class="num">46</span>
+            <span class="date">24/10/2026</span>
+            <span class="reading">Génesis 43–46</span>
+        </label><label class="day" data-text="génesis 47–50" data-date="2026-10-25">
+            <input type="checkbox" data-day="47">
+            <span class="num">47</span>
+            <span class="date">25/10/2026</span>
+            <span class="reading">Génesis 47–50</span>
+        </label><label class="day" data-text="éxodo 1–4" data-date="2026-10-26">
+            <input type="checkbox" data-day="48">
+            <span class="num">48</span>
+            <span class="date">26/10/2026</span>
+            <span class="reading">Éxodo 1–4</span>
+        </label><label class="day" data-text="éxodo 5–8" data-date="2026-10-27">
+            <input type="checkbox" data-day="49">
+            <span class="num">49</span>
+            <span class="date">27/10/2026</span>
+            <span class="reading">Éxodo 5–8</span>
+        </label><label class="day" data-text="éxodo 9–12" data-date="2026-10-28">
+            <input type="checkbox" data-day="50">
+            <span class="num">50</span>
+            <span class="date">28/10/2026</span>
+            <span class="reading">Éxodo 9–12</span>
+        </label><label class="day" data-text="éxodo 13–16" data-date="2026-10-29">
+            <input type="checkbox" data-day="51">
+            <span class="num">51</span>
+            <span class="date">29/10/2026</span>
+            <span class="reading">Éxodo 13–16</span>
+        </label><label class="day" data-text="éxodo 17–20" data-date="2026-10-30">
+            <input type="checkbox" data-day="52">
+            <span class="num">52</span>
+            <span class="date">30/10/2026</span>
+            <span class="reading">Éxodo 17–20</span>
+        </label><label class="day" data-text="éxodo 21–24" data-date="2026-10-31">
+            <input type="checkbox" data-day="53">
+            <span class="num">53</span>
+            <span class="date">31/10/2026</span>
+            <span class="reading">Éxodo 21–24</span>
+        </label><label class="day" data-text="éxodo 25–28" data-date="2026-11-01">
+            <input type="checkbox" data-day="54">
+            <span class="num">54</span>
+            <span class="date">01/11/2026</span>
+            <span class="reading">Éxodo 25–28</span>
+        </label><label class="day" data-text="éxodo 29–32" data-date="2026-11-02">
+            <input type="checkbox" data-day="55">
+            <span class="num">55</span>
+            <span class="date">02/11/2026</span>
+            <span class="reading">Éxodo 29–32</span>
+        </label><label class="day" data-text="éxodo 33–36" data-date="2026-11-03">
+            <input type="checkbox" data-day="56">
+            <span class="num">56</span>
+            <span class="date">03/11/2026</span>
+            <span class="reading">Éxodo 33–36</span>
+        </label><label class="day" data-text="éxodo 37–40" data-date="2026-11-04">
+            <input type="checkbox" data-day="57">
+            <span class="num">57</span>
+            <span class="date">04/11/2026</span>
+            <span class="reading">Éxodo 37–40</span>
+        </label><label class="day" data-text="levítico 1–4" data-date="2026-11-05">
+            <input type="checkbox" data-day="58">
+            <span class="num">58</span>
+            <span class="date">05/11/2026</span>
+            <span class="reading">Levítico 1–4</span>
+        </label><label class="day" data-text="levítico 5–8" data-date="2026-11-06">
+            <input type="checkbox" data-day="59">
+            <span class="num">59</span>
+            <span class="date">06/11/2026</span>
+            <span class="reading">Levítico 5–8</span>
+        </label><label class="day" data-text="levítico 9–12" data-date="2026-11-07">
+            <input type="checkbox" data-day="60">
+            <span class="num">60</span>
+            <span class="date">07/11/2026</span>
+            <span class="reading">Levítico 9–12</span>
+        </label><label class="day" data-text="levítico 13–16" data-date="2026-11-08">
+            <input type="checkbox" data-day="61">
+            <span class="num">61</span>
+            <span class="date">08/11/2026</span>
+            <span class="reading">Levítico 13–16</span>
+        </label><label class="day" data-text="levítico 17–20" data-date="2026-11-09">
+            <input type="checkbox" data-day="62">
+            <span class="num">62</span>
+            <span class="date">09/11/2026</span>
+            <span class="reading">Levítico 17–20</span>
+        </label><label class="day" data-text="levítico 21–24" data-date="2026-11-10">
+            <input type="checkbox" data-day="63">
+            <span class="num">63</span>
+            <span class="date">10/11/2026</span>
+            <span class="reading">Levítico 21–24</span>
+        </label><label class="day" data-text="levítico 25–27 + números 1" data-date="2026-11-11">
+            <input type="checkbox" data-day="64">
+            <span class="num">64</span>
+            <span class="date">11/11/2026</span>
+            <span class="reading">Levítico 25–27 + Números 1</span>
+        </label><label class="day" data-text="números 2–5" data-date="2026-11-12">
+            <input type="checkbox" data-day="65">
+            <span class="num">65</span>
+            <span class="date">12/11/2026</span>
+            <span class="reading">Números 2–5</span>
+        </label><label class="day" data-text="números 6–9" data-date="2026-11-13">
+            <input type="checkbox" data-day="66">
+            <span class="num">66</span>
+            <span class="date">13/11/2026</span>
+            <span class="reading">Números 6–9</span>
+        </label><label class="day" data-text="números 10–13" data-date="2026-11-14">
+            <input type="checkbox" data-day="67">
+            <span class="num">67</span>
+            <span class="date">14/11/2026</span>
+            <span class="reading">Números 10–13</span>
+        </label><label class="day" data-text="números 14–17" data-date="2026-11-15">
+            <input type="checkbox" data-day="68">
+            <span class="num">68</span>
+            <span class="date">15/11/2026</span>
+            <span class="reading">Números 14–17</span>
+        </label><label class="day" data-text="números 18–21" data-date="2026-11-16">
+            <input type="checkbox" data-day="69">
+            <span class="num">69</span>
+            <span class="date">16/11/2026</span>
+            <span class="reading">Números 18–21</span>
+        </label><label class="day" data-text="números 22–25" data-date="2026-11-17">
+            <input type="checkbox" data-day="70">
+            <span class="num">70</span>
+            <span class="date">17/11/2026</span>
+            <span class="reading">Números 22–25</span>
+        </label><label class="day" data-text="números 26–29" data-date="2026-11-18">
+            <input type="checkbox" data-day="71">
+            <span class="num">71</span>
+            <span class="date">18/11/2026</span>
+            <span class="reading">Números 26–29</span>
+        </label><label class="day" data-text="números 30–33" data-date="2026-11-19">
+            <input type="checkbox" data-day="72">
+            <span class="num">72</span>
+            <span class="date">19/11/2026</span>
+            <span class="reading">Números 30–33</span>
+        </label><label class="day" data-text="números 34–36 + deuteronomio 1" data-date="2026-11-20">
+            <input type="checkbox" data-day="73">
+            <span class="num">73</span>
+            <span class="date">20/11/2026</span>
+            <span class="reading">Números 34–36 + Deuteronomio 1</span>
+        </label><label class="day" data-text="deuteronomio 2–5" data-date="2026-11-21">
+            <input type="checkbox" data-day="74">
+            <span class="num">74</span>
+            <span class="date">21/11/2026</span>
+            <span class="reading">Deuteronomio 2–5</span>
+        </label><label class="day" data-text="deuteronomio 6–9" data-date="2026-11-22">
+            <input type="checkbox" data-day="75">
+            <span class="num">75</span>
+            <span class="date">22/11/2026</span>
+            <span class="reading">Deuteronomio 6–9</span>
+        </label><label class="day" data-text="deuteronomio 10–13" data-date="2026-11-23">
+            <input type="checkbox" data-day="76">
+            <span class="num">76</span>
+            <span class="date">23/11/2026</span>
+            <span class="reading">Deuteronomio 10–13</span>
+        </label><label class="day" data-text="deuteronomio 14–17" data-date="2026-11-24">
+            <input type="checkbox" data-day="77">
+            <span class="num">77</span>
+            <span class="date">24/11/2026</span>
+            <span class="reading">Deuteronomio 14–17</span>
+        </label><label class="day" data-text="deuteronomio 18–21" data-date="2026-11-25">
+            <input type="checkbox" data-day="78">
+            <span class="num">78</span>
+            <span class="date">25/11/2026</span>
+            <span class="reading">Deuteronomio 18–21</span>
+        </label><label class="day" data-text="deuteronomio 22–25" data-date="2026-11-26">
+            <input type="checkbox" data-day="79">
+            <span class="num">79</span>
+            <span class="date">26/11/2026</span>
+            <span class="reading">Deuteronomio 22–25</span>
+        </label><label class="day" data-text="deuteronomio 26–29" data-date="2026-11-27">
+            <input type="checkbox" data-day="80">
+            <span class="num">80</span>
+            <span class="date">27/11/2026</span>
+            <span class="reading">Deuteronomio 26–29</span>
+        </label><label class="day" data-text="deuteronomio 30–33" data-date="2026-11-28">
+            <input type="checkbox" data-day="81">
+            <span class="num">81</span>
+            <span class="date">28/11/2026</span>
+            <span class="reading">Deuteronomio 30–33</span>
+        </label><label class="day" data-text="deuteronomio 34 + josué 1–3" data-date="2026-11-29">
+            <input type="checkbox" data-day="82">
+            <span class="num">82</span>
+            <span class="date">29/11/2026</span>
+            <span class="reading">Deuteronomio 34 + Josué 1–3</span>
+        </label><label class="day" data-text="josué 4–7" data-date="2026-11-30">
+            <input type="checkbox" data-day="83">
+            <span class="num">83</span>
+            <span class="date">30/11/2026</span>
+            <span class="reading">Josué 4–7</span>
+        </label><label class="day" data-text="josué 8–11" data-date="2026-12-01">
+            <input type="checkbox" data-day="84">
+            <span class="num">84</span>
+            <span class="date">01/12/2026</span>
+            <span class="reading">Josué 8–11</span>
+        </label><label class="day" data-text="josué 12–15" data-date="2026-12-02">
+            <input type="checkbox" data-day="85">
+            <span class="num">85</span>
+            <span class="date">02/12/2026</span>
+            <span class="reading">Josué 12–15</span>
+        </label><label class="day" data-text="josué 16–19" data-date="2026-12-03">
+            <input type="checkbox" data-day="86">
+            <span class="num">86</span>
+            <span class="date">03/12/2026</span>
+            <span class="reading">Josué 16–19</span>
+        </label><label class="day" data-text="josué 20–23" data-date="2026-12-04">
+            <input type="checkbox" data-day="87">
+            <span class="num">87</span>
+            <span class="date">04/12/2026</span>
+            <span class="reading">Josué 20–23</span>
+        </label><label class="day" data-text="josué 24 + jueces 1–3" data-date="2026-12-05">
+            <input type="checkbox" data-day="88">
+            <span class="num">88</span>
+            <span class="date">05/12/2026</span>
+            <span class="reading">Josué 24 + Jueces 1–3</span>
+        </label><label class="day" data-text="jueces 4–7" data-date="2026-12-06">
+            <input type="checkbox" data-day="89">
+            <span class="num">89</span>
+            <span class="date">06/12/2026</span>
+            <span class="reading">Jueces 4–7</span>
+        </label><label class="day" data-text="jueces 8–11" data-date="2026-12-07">
+            <input type="checkbox" data-day="90">
+            <span class="num">90</span>
+            <span class="date">07/12/2026</span>
+            <span class="reading">Jueces 8–11</span>
+        </label><label class="day" data-text="jueces 12–15" data-date="2026-12-08">
+            <input type="checkbox" data-day="91">
+            <span class="num">91</span>
+            <span class="date">08/12/2026</span>
+            <span class="reading">Jueces 12–15</span>
+        </label><label class="day" data-text="jueces 16–19" data-date="2026-12-09">
+            <input type="checkbox" data-day="92">
+            <span class="num">92</span>
+            <span class="date">09/12/2026</span>
+            <span class="reading">Jueces 16–19</span>
+        </label><label class="day" data-text="jueces 20–21 + rut 1–2" data-date="2026-12-10">
+            <input type="checkbox" data-day="93">
+            <span class="num">93</span>
+            <span class="date">10/12/2026</span>
+            <span class="reading">Jueces 20–21 + Rut 1–2</span>
+        </label><label class="day" data-text="rut 3–4 + 1 samuel 1–2" data-date="2026-12-11">
+            <input type="checkbox" data-day="94">
+            <span class="num">94</span>
+            <span class="date">11/12/2026</span>
+            <span class="reading">Rut 3–4 + 1 Samuel 1–2</span>
+        </label><label class="day" data-text="1 samuel 3–5" data-date="2026-12-12">
+            <input type="checkbox" data-day="95">
+            <span class="num">95</span>
+            <span class="date">12/12/2026</span>
+            <span class="reading">1 Samuel 3–5</span>
+        </label><label class="day" data-text="1 samuel 6–8" data-date="2026-12-13">
+            <input type="checkbox" data-day="96">
+            <span class="num">96</span>
+            <span class="date">13/12/2026</span>
+            <span class="reading">1 Samuel 6–8</span>
+        </label><label class="day" data-text="1 samuel 9–11" data-date="2026-12-14">
+            <input type="checkbox" data-day="97">
+            <span class="num">97</span>
+            <span class="date">14/12/2026</span>
+            <span class="reading">1 Samuel 9–11</span>
+        </label><label class="day" data-text="1 samuel 12–14" data-date="2026-12-15">
+            <input type="checkbox" data-day="98">
+            <span class="num">98</span>
+            <span class="date">15/12/2026</span>
+            <span class="reading">1 Samuel 12–14</span>
+        </label><label class="day" data-text="1 samuel 15–17" data-date="2026-12-16">
+            <input type="checkbox" data-day="99">
+            <span class="num">99</span>
+            <span class="date">16/12/2026</span>
+            <span class="reading">1 Samuel 15–17</span>
+        </label><label class="day" data-text="1 samuel 18–20" data-date="2026-12-17">
+            <input type="checkbox" data-day="100">
+            <span class="num">100</span>
+            <span class="date">17/12/2026</span>
+            <span class="reading">1 Samuel 18–20</span>
+        </label><label class="day" data-text="1 samuel 21–23" data-date="2026-12-18">
+            <input type="checkbox" data-day="101">
+            <span class="num">101</span>
+            <span class="date">18/12/2026</span>
+            <span class="reading">1 Samuel 21–23</span>
+        </label><label class="day" data-text="1 samuel 24–26" data-date="2026-12-19">
+            <input type="checkbox" data-day="102">
+            <span class="num">102</span>
+            <span class="date">19/12/2026</span>
+            <span class="reading">1 Samuel 24–26</span>
+        </label><label class="day" data-text="1 samuel 27–29" data-date="2026-12-20">
+            <input type="checkbox" data-day="103">
+            <span class="num">103</span>
+            <span class="date">20/12/2026</span>
+            <span class="reading">1 Samuel 27–29</span>
+        </label><label class="day" data-text="1 samuel 30–31 + 2 samuel 1" data-date="2026-12-21">
+            <input type="checkbox" data-day="104">
+            <span class="num">104</span>
+            <span class="date">21/12/2026</span>
+            <span class="reading">1 Samuel 30–31 + 2 Samuel 1</span>
+        </label><label class="day" data-text="2 samuel 2–4" data-date="2026-12-22">
+            <input type="checkbox" data-day="105">
+            <span class="num">105</span>
+            <span class="date">22/12/2026</span>
+            <span class="reading">2 Samuel 2–4</span>
+        </label><label class="day" data-text="2 samuel 5–7" data-date="2026-12-23">
+            <input type="checkbox" data-day="106">
+            <span class="num">106</span>
+            <span class="date">23/12/2026</span>
+            <span class="reading">2 Samuel 5–7</span>
+        </label><label class="day" data-text="2 samuel 8–10" data-date="2026-12-24">
+            <input type="checkbox" data-day="107">
+            <span class="num">107</span>
+            <span class="date">24/12/2026</span>
+            <span class="reading">2 Samuel 8–10</span>
+        </label><label class="day" data-text="2 samuel 11–13" data-date="2026-12-25">
+            <input type="checkbox" data-day="108">
+            <span class="num">108</span>
+            <span class="date">25/12/2026</span>
+            <span class="reading">2 Samuel 11–13</span>
+        </label><label class="day" data-text="2 samuel 14–16" data-date="2026-12-26">
+            <input type="checkbox" data-day="109">
+            <span class="num">109</span>
+            <span class="date">26/12/2026</span>
+            <span class="reading">2 Samuel 14–16</span>
+        </label><label class="day" data-text="2 samuel 17–19" data-date="2026-12-27">
+            <input type="checkbox" data-day="110">
+            <span class="num">110</span>
+            <span class="date">27/12/2026</span>
+            <span class="reading">2 Samuel 17–19</span>
+        </label><label class="day" data-text="2 samuel 20–22" data-date="2026-12-28">
+            <input type="checkbox" data-day="111">
+            <span class="num">111</span>
+            <span class="date">28/12/2026</span>
+            <span class="reading">2 Samuel 20–22</span>
+        </label><label class="day" data-text="2 samuel 23–24 + 1 reyes 1" data-date="2026-12-29">
+            <input type="checkbox" data-day="112">
+            <span class="num">112</span>
+            <span class="date">29/12/2026</span>
+            <span class="reading">2 Samuel 23–24 + 1 Reyes 1</span>
+        </label><label class="day" data-text="1 reyes 2–4" data-date="2026-12-30">
+            <input type="checkbox" data-day="113">
+            <span class="num">113</span>
+            <span class="date">30/12/2026</span>
+            <span class="reading">1 Reyes 2–4</span>
+        </label><label class="day" data-text="1 reyes 5–7" data-date="2026-12-31">
+            <input type="checkbox" data-day="114">
+            <span class="num">114</span>
+            <span class="date">31/12/2026</span>
+            <span class="reading">1 Reyes 5–7</span>
+        </label><label class="day" data-text="1 reyes 8–10" data-date="2027-01-01">
+            <input type="checkbox" data-day="115">
+            <span class="num">115</span>
+            <span class="date">01/01/2027</span>
+            <span class="reading">1 Reyes 8–10</span>
+        </label><label class="day" data-text="1 reyes 11–13" data-date="2027-01-02">
+            <input type="checkbox" data-day="116">
+            <span class="num">116</span>
+            <span class="date">02/01/2027</span>
+            <span class="reading">1 Reyes 11–13</span>
+        </label><label class="day" data-text="1 reyes 14–16" data-date="2027-01-03">
+            <input type="checkbox" data-day="117">
+            <span class="num">117</span>
+            <span class="date">03/01/2027</span>
+            <span class="reading">1 Reyes 14–16</span>
+        </label><label class="day" data-text="1 reyes 17–19" data-date="2027-01-04">
+            <input type="checkbox" data-day="118">
+            <span class="num">118</span>
+            <span class="date">04/01/2027</span>
+            <span class="reading">1 Reyes 17–19</span>
+        </label><label class="day" data-text="1 reyes 20–22" data-date="2027-01-05">
+            <input type="checkbox" data-day="119">
+            <span class="num">119</span>
+            <span class="date">05/01/2027</span>
+            <span class="reading">1 Reyes 20–22</span>
+        </label><label class="day" data-text="2 reyes 1–3" data-date="2027-01-06">
+            <input type="checkbox" data-day="120">
+            <span class="num">120</span>
+            <span class="date">06/01/2027</span>
+            <span class="reading">2 Reyes 1–3</span>
+        </label><label class="day" data-text="2 reyes 4–6" data-date="2027-01-07">
+            <input type="checkbox" data-day="121">
+            <span class="num">121</span>
+            <span class="date">07/01/2027</span>
+            <span class="reading">2 Reyes 4–6</span>
+        </label><label class="day" data-text="2 reyes 7–9" data-date="2027-01-08">
+            <input type="checkbox" data-day="122">
+            <span class="num">122</span>
+            <span class="date">08/01/2027</span>
+            <span class="reading">2 Reyes 7–9</span>
+        </label><label class="day" data-text="2 reyes 10–12" data-date="2027-01-09">
+            <input type="checkbox" data-day="123">
+            <span class="num">123</span>
+            <span class="date">09/01/2027</span>
+            <span class="reading">2 Reyes 10–12</span>
+        </label><label class="day" data-text="2 reyes 13–15" data-date="2027-01-10">
+            <input type="checkbox" data-day="124">
+            <span class="num">124</span>
+            <span class="date">10/01/2027</span>
+            <span class="reading">2 Reyes 13–15</span>
+        </label><label class="day" data-text="2 reyes 16–18" data-date="2027-01-11">
+            <input type="checkbox" data-day="125">
+            <span class="num">125</span>
+            <span class="date">11/01/2027</span>
+            <span class="reading">2 Reyes 16–18</span>
+        </label><label class="day" data-text="2 reyes 19–21" data-date="2027-01-12">
+            <input type="checkbox" data-day="126">
+            <span class="num">126</span>
+            <span class="date">12/01/2027</span>
+            <span class="reading">2 Reyes 19–21</span>
+        </label><label class="day" data-text="2 reyes 22–24" data-date="2027-01-13">
+            <input type="checkbox" data-day="127">
+            <span class="num">127</span>
+            <span class="date">13/01/2027</span>
+            <span class="reading">2 Reyes 22–24</span>
+        </label><label class="day" data-text="2 reyes 25 + 1 crónicas 1–2" data-date="2027-01-14">
+            <input type="checkbox" data-day="128">
+            <span class="num">128</span>
+            <span class="date">14/01/2027</span>
+            <span class="reading">2 Reyes 25 + 1 Crónicas 1–2</span>
+        </label><label class="day" data-text="1 crónicas 3–5" data-date="2027-01-15">
+            <input type="checkbox" data-day="129">
+            <span class="num">129</span>
+            <span class="date">15/01/2027</span>
+            <span class="reading">1 Crónicas 3–5</span>
+        </label><label class="day" data-text="1 crónicas 6–8" data-date="2027-01-16">
+            <input type="checkbox" data-day="130">
+            <span class="num">130</span>
+            <span class="date">16/01/2027</span>
+            <span class="reading">1 Crónicas 6–8</span>
+        </label><label class="day" data-text="1 crónicas 9–11" data-date="2027-01-17">
+            <input type="checkbox" data-day="131">
+            <span class="num">131</span>
+            <span class="date">17/01/2027</span>
+            <span class="reading">1 Crónicas 9–11</span>
+        </label><label class="day" data-text="1 crónicas 12–14" data-date="2027-01-18">
+            <input type="checkbox" data-day="132">
+            <span class="num">132</span>
+            <span class="date">18/01/2027</span>
+            <span class="reading">1 Crónicas 12–14</span>
+        </label><label class="day" data-text="1 crónicas 15–17" data-date="2027-01-19">
+            <input type="checkbox" data-day="133">
+            <span class="num">133</span>
+            <span class="date">19/01/2027</span>
+            <span class="reading">1 Crónicas 15–17</span>
+        </label><label class="day" data-text="1 crónicas 18–20" data-date="2027-01-20">
+            <input type="checkbox" data-day="134">
+            <span class="num">134</span>
+            <span class="date">20/01/2027</span>
+            <span class="reading">1 Crónicas 18–20</span>
+        </label><label class="day" data-text="1 crónicas 21–23" data-date="2027-01-21">
+            <input type="checkbox" data-day="135">
+            <span class="num">135</span>
+            <span class="date">21/01/2027</span>
+            <span class="reading">1 Crónicas 21–23</span>
+        </label><label class="day" data-text="1 crónicas 24–26" data-date="2027-01-22">
+            <input type="checkbox" data-day="136">
+            <span class="num">136</span>
+            <span class="date">22/01/2027</span>
+            <span class="reading">1 Crónicas 24–26</span>
+        </label><label class="day" data-text="1 crónicas 27–29" data-date="2027-01-23">
+            <input type="checkbox" data-day="137">
+            <span class="num">137</span>
+            <span class="date">23/01/2027</span>
+            <span class="reading">1 Crónicas 27–29</span>
+        </label><label class="day" data-text="2 crónicas 1–3" data-date="2027-01-24">
+            <input type="checkbox" data-day="138">
+            <span class="num">138</span>
+            <span class="date">24/01/2027</span>
+            <span class="reading">2 Crónicas 1–3</span>
+        </label><label class="day" data-text="2 crónicas 4–6" data-date="2027-01-25">
+            <input type="checkbox" data-day="139">
+            <span class="num">139</span>
+            <span class="date">25/01/2027</span>
+            <span class="reading">2 Crónicas 4–6</span>
+        </label><label class="day" data-text="2 crónicas 7–9" data-date="2027-01-26">
+            <input type="checkbox" data-day="140">
+            <span class="num">140</span>
+            <span class="date">26/01/2027</span>
+            <span class="reading">2 Crónicas 7–9</span>
+        </label><label class="day" data-text="2 crónicas 10–12" data-date="2027-01-27">
+            <input type="checkbox" data-day="141">
+            <span class="num">141</span>
+            <span class="date">27/01/2027</span>
+            <span class="reading">2 Crónicas 10–12</span>
+        </label><label class="day" data-text="2 crónicas 13–15" data-date="2027-01-28">
+            <input type="checkbox" data-day="142">
+            <span class="num">142</span>
+            <span class="date">28/01/2027</span>
+            <span class="reading">2 Crónicas 13–15</span>
+        </label><label class="day" data-text="2 crónicas 16–18" data-date="2027-01-29">
+            <input type="checkbox" data-day="143">
+            <span class="num">143</span>
+            <span class="date">29/01/2027</span>
+            <span class="reading">2 Crónicas 16–18</span>
+        </label><label class="day" data-text="2 crónicas 19–21" data-date="2027-01-30">
+            <input type="checkbox" data-day="144">
+            <span class="num">144</span>
+            <span class="date">30/01/2027</span>
+            <span class="reading">2 Crónicas 19–21</span>
+        </label><label class="day" data-text="2 crónicas 22–24" data-date="2027-01-31">
+            <input type="checkbox" data-day="145">
+            <span class="num">145</span>
+            <span class="date">31/01/2027</span>
+            <span class="reading">2 Crónicas 22–24</span>
+        </label><label class="day" data-text="2 crónicas 25–27" data-date="2027-02-01">
+            <input type="checkbox" data-day="146">
+            <span class="num">146</span>
+            <span class="date">01/02/2027</span>
+            <span class="reading">2 Crónicas 25–27</span>
+        </label><label class="day" data-text="2 crónicas 28–30" data-date="2027-02-02">
+            <input type="checkbox" data-day="147">
+            <span class="num">147</span>
+            <span class="date">02/02/2027</span>
+            <span class="reading">2 Crónicas 28–30</span>
+        </label><label class="day" data-text="2 crónicas 31–33" data-date="2027-02-03">
+            <input type="checkbox" data-day="148">
+            <span class="num">148</span>
+            <span class="date">03/02/2027</span>
+            <span class="reading">2 Crónicas 31–33</span>
+        </label><label class="day" data-text="2 crónicas 34–36" data-date="2027-02-04">
+            <input type="checkbox" data-day="149">
+            <span class="num">149</span>
+            <span class="date">04/02/2027</span>
+            <span class="reading">2 Crónicas 34–36</span>
+        </label><label class="day" data-text="esdras 1–3" data-date="2027-02-05">
+            <input type="checkbox" data-day="150">
+            <span class="num">150</span>
+            <span class="date">05/02/2027</span>
+            <span class="reading">Esdras 1–3</span>
+        </label><label class="day" data-text="esdras 4–6" data-date="2027-02-06">
+            <input type="checkbox" data-day="151">
+            <span class="num">151</span>
+            <span class="date">06/02/2027</span>
+            <span class="reading">Esdras 4–6</span>
+        </label><label class="day" data-text="esdras 7–9" data-date="2027-02-07">
+            <input type="checkbox" data-day="152">
+            <span class="num">152</span>
+            <span class="date">07/02/2027</span>
+            <span class="reading">Esdras 7–9</span>
+        </label><label class="day" data-text="esdras 10 + nehemías 1–2" data-date="2027-02-08">
+            <input type="checkbox" data-day="153">
+            <span class="num">153</span>
+            <span class="date">08/02/2027</span>
+            <span class="reading">Esdras 10 + Nehemías 1–2</span>
+        </label><label class="day" data-text="nehemías 3–5" data-date="2027-02-09">
+            <input type="checkbox" data-day="154">
+            <span class="num">154</span>
+            <span class="date">09/02/2027</span>
+            <span class="reading">Nehemías 3–5</span>
+        </label><label class="day" data-text="nehemías 6–8" data-date="2027-02-10">
+            <input type="checkbox" data-day="155">
+            <span class="num">155</span>
+            <span class="date">10/02/2027</span>
+            <span class="reading">Nehemías 6–8</span>
+        </label><label class="day" data-text="nehemías 9–11" data-date="2027-02-11">
+            <input type="checkbox" data-day="156">
+            <span class="num">156</span>
+            <span class="date">11/02/2027</span>
+            <span class="reading">Nehemías 9–11</span>
+        </label><label class="day" data-text="nehemías 12–13 + ester 1" data-date="2027-02-12">
+            <input type="checkbox" data-day="157">
+            <span class="num">157</span>
+            <span class="date">12/02/2027</span>
+            <span class="reading">Nehemías 12–13 + Ester 1</span>
+        </label><label class="day" data-text="ester 2–4" data-date="2027-02-13">
+            <input type="checkbox" data-day="158">
+            <span class="num">158</span>
+            <span class="date">13/02/2027</span>
+            <span class="reading">Ester 2–4</span>
+        </label><label class="day" data-text="ester 5–7" data-date="2027-02-14">
+            <input type="checkbox" data-day="159">
+            <span class="num">159</span>
+            <span class="date">14/02/2027</span>
+            <span class="reading">Ester 5–7</span>
+        </label><label class="day" data-text="ester 8–10" data-date="2027-02-15">
+            <input type="checkbox" data-day="160">
+            <span class="num">160</span>
+            <span class="date">15/02/2027</span>
+            <span class="reading">Ester 8–10</span>
+        </label><label class="day" data-text="job 1–3" data-date="2027-02-16">
+            <input type="checkbox" data-day="161">
+            <span class="num">161</span>
+            <span class="date">16/02/2027</span>
+            <span class="reading">Job 1–3</span>
+        </label><label class="day" data-text="job 4–6" data-date="2027-02-17">
+            <input type="checkbox" data-day="162">
+            <span class="num">162</span>
+            <span class="date">17/02/2027</span>
+            <span class="reading">Job 4–6</span>
+        </label><label class="day" data-text="job 7–9" data-date="2027-02-18">
+            <input type="checkbox" data-day="163">
+            <span class="num">163</span>
+            <span class="date">18/02/2027</span>
+            <span class="reading">Job 7–9</span>
+        </label><label class="day" data-text="job 10–12" data-date="2027-02-19">
+            <input type="checkbox" data-day="164">
+            <span class="num">164</span>
+            <span class="date">19/02/2027</span>
+            <span class="reading">Job 10–12</span>
+        </label><label class="day" data-text="job 13–15" data-date="2027-02-20">
+            <input type="checkbox" data-day="165">
+            <span class="num">165</span>
+            <span class="date">20/02/2027</span>
+            <span class="reading">Job 13–15</span>
+        </label><label class="day" data-text="job 16–18" data-date="2027-02-21">
+            <input type="checkbox" data-day="166">
+            <span class="num">166</span>
+            <span class="date">21/02/2027</span>
+            <span class="reading">Job 16–18</span>
+        </label><label class="day" data-text="job 19–21" data-date="2027-02-22">
+            <input type="checkbox" data-day="167">
+            <span class="num">167</span>
+            <span class="date">22/02/2027</span>
+            <span class="reading">Job 19–21</span>
+        </label><label class="day" data-text="job 22–24" data-date="2027-02-23">
+            <input type="checkbox" data-day="168">
+            <span class="num">168</span>
+            <span class="date">23/02/2027</span>
+            <span class="reading">Job 22–24</span>
+        </label><label class="day" data-text="job 25–27" data-date="2027-02-24">
+            <input type="checkbox" data-day="169">
+            <span class="num">169</span>
+            <span class="date">24/02/2027</span>
+            <span class="reading">Job 25–27</span>
+        </label><label class="day" data-text="job 28–30" data-date="2027-02-25">
+            <input type="checkbox" data-day="170">
+            <span class="num">170</span>
+            <span class="date">25/02/2027</span>
+            <span class="reading">Job 28–30</span>
+        </label><label class="day" data-text="job 31–33" data-date="2027-02-26">
+            <input type="checkbox" data-day="171">
+            <span class="num">171</span>
+            <span class="date">26/02/2027</span>
+            <span class="reading">Job 31–33</span>
+        </label><label class="day" data-text="job 34–36" data-date="2027-02-27">
+            <input type="checkbox" data-day="172">
+            <span class="num">172</span>
+            <span class="date">27/02/2027</span>
+            <span class="reading">Job 34–36</span>
+        </label><label class="day" data-text="job 37–39" data-date="2027-02-28">
+            <input type="checkbox" data-day="173">
+            <span class="num">173</span>
+            <span class="date">28/02/2027</span>
+            <span class="reading">Job 37–39</span>
+        </label><label class="day" data-text="job 40–42" data-date="2027-03-01">
+            <input type="checkbox" data-day="174">
+            <span class="num">174</span>
+            <span class="date">01/03/2027</span>
+            <span class="reading">Job 40–42</span>
+        </label><label class="day" data-text="salmos 1–3" data-date="2027-03-02">
+            <input type="checkbox" data-day="175">
+            <span class="num">175</span>
+            <span class="date">02/03/2027</span>
+            <span class="reading">Salmos 1–3</span>
+        </label><label class="day" data-text="salmos 4–6" data-date="2027-03-03">
+            <input type="checkbox" data-day="176">
+            <span class="num">176</span>
+            <span class="date">03/03/2027</span>
+            <span class="reading">Salmos 4–6</span>
+        </label><label class="day" data-text="salmos 7–9" data-date="2027-03-04">
+            <input type="checkbox" data-day="177">
+            <span class="num">177</span>
+            <span class="date">04/03/2027</span>
+            <span class="reading">Salmos 7–9</span>
+        </label><label class="day" data-text="salmos 10–12" data-date="2027-03-05">
+            <input type="checkbox" data-day="178">
+            <span class="num">178</span>
+            <span class="date">05/03/2027</span>
+            <span class="reading">Salmos 10–12</span>
+        </label><label class="day" data-text="salmos 13–15" data-date="2027-03-06">
+            <input type="checkbox" data-day="179">
+            <span class="num">179</span>
+            <span class="date">06/03/2027</span>
+            <span class="reading">Salmos 13–15</span>
+        </label><label class="day" data-text="salmos 16–18" data-date="2027-03-07">
+            <input type="checkbox" data-day="180">
+            <span class="num">180</span>
+            <span class="date">07/03/2027</span>
+            <span class="reading">Salmos 16–18</span>
+        </label><label class="day" data-text="salmos 19–21" data-date="2027-03-08">
+            <input type="checkbox" data-day="181">
+            <span class="num">181</span>
+            <span class="date">08/03/2027</span>
+            <span class="reading">Salmos 19–21</span>
+        </label><label class="day" data-text="salmos 22–24" data-date="2027-03-09">
+            <input type="checkbox" data-day="182">
+            <span class="num">182</span>
+            <span class="date">09/03/2027</span>
+            <span class="reading">Salmos 22–24</span>
+        </label><label class="day" data-text="salmos 25–27" data-date="2027-03-10">
+            <input type="checkbox" data-day="183">
+            <span class="num">183</span>
+            <span class="date">10/03/2027</span>
+            <span class="reading">Salmos 25–27</span>
+        </label><label class="day" data-text="salmos 28–30" data-date="2027-03-11">
+            <input type="checkbox" data-day="184">
+            <span class="num">184</span>
+            <span class="date">11/03/2027</span>
+            <span class="reading">Salmos 28–30</span>
+        </label><label class="day" data-text="salmos 31–33" data-date="2027-03-12">
+            <input type="checkbox" data-day="185">
+            <span class="num">185</span>
+            <span class="date">12/03/2027</span>
+            <span class="reading">Salmos 31–33</span>
+        </label><label class="day" data-text="salmos 34–36" data-date="2027-03-13">
+            <input type="checkbox" data-day="186">
+            <span class="num">186</span>
+            <span class="date">13/03/2027</span>
+            <span class="reading">Salmos 34–36</span>
+        </label><label class="day" data-text="salmos 37–39" data-date="2027-03-14">
+            <input type="checkbox" data-day="187">
+            <span class="num">187</span>
+            <span class="date">14/03/2027</span>
+            <span class="reading">Salmos 37–39</span>
+        </label><label class="day" data-text="salmos 40–42" data-date="2027-03-15">
+            <input type="checkbox" data-day="188">
+            <span class="num">188</span>
+            <span class="date">15/03/2027</span>
+            <span class="reading">Salmos 40–42</span>
+        </label><label class="day" data-text="salmos 43–45" data-date="2027-03-16">
+            <input type="checkbox" data-day="189">
+            <span class="num">189</span>
+            <span class="date">16/03/2027</span>
+            <span class="reading">Salmos 43–45</span>
+        </label><label class="day" data-text="salmos 46–48" data-date="2027-03-17">
+            <input type="checkbox" data-day="190">
+            <span class="num">190</span>
+            <span class="date">17/03/2027</span>
+            <span class="reading">Salmos 46–48</span>
+        </label><label class="day" data-text="salmos 49–51" data-date="2027-03-18">
+            <input type="checkbox" data-day="191">
+            <span class="num">191</span>
+            <span class="date">18/03/2027</span>
+            <span class="reading">Salmos 49–51</span>
+        </label><label class="day" data-text="salmos 52–54" data-date="2027-03-19">
+            <input type="checkbox" data-day="192">
+            <span class="num">192</span>
+            <span class="date">19/03/2027</span>
+            <span class="reading">Salmos 52–54</span>
+        </label><label class="day" data-text="salmos 55–57" data-date="2027-03-20">
+            <input type="checkbox" data-day="193">
+            <span class="num">193</span>
+            <span class="date">20/03/2027</span>
+            <span class="reading">Salmos 55–57</span>
+        </label><label class="day" data-text="salmos 58–60" data-date="2027-03-21">
+            <input type="checkbox" data-day="194">
+            <span class="num">194</span>
+            <span class="date">21/03/2027</span>
+            <span class="reading">Salmos 58–60</span>
+        </label><label class="day" data-text="salmos 61–63" data-date="2027-03-22">
+            <input type="checkbox" data-day="195">
+            <span class="num">195</span>
+            <span class="date">22/03/2027</span>
+            <span class="reading">Salmos 61–63</span>
+        </label><label class="day" data-text="salmos 64–66" data-date="2027-03-23">
+            <input type="checkbox" data-day="196">
+            <span class="num">196</span>
+            <span class="date">23/03/2027</span>
+            <span class="reading">Salmos 64–66</span>
+        </label><label class="day" data-text="salmos 67–69" data-date="2027-03-24">
+            <input type="checkbox" data-day="197">
+            <span class="num">197</span>
+            <span class="date">24/03/2027</span>
+            <span class="reading">Salmos 67–69</span>
+        </label><label class="day" data-text="salmos 70–72" data-date="2027-03-25">
+            <input type="checkbox" data-day="198">
+            <span class="num">198</span>
+            <span class="date">25/03/2027</span>
+            <span class="reading">Salmos 70–72</span>
+        </label><label class="day" data-text="salmos 73–75" data-date="2027-03-26">
+            <input type="checkbox" data-day="199">
+            <span class="num">199</span>
+            <span class="date">26/03/2027</span>
+            <span class="reading">Salmos 73–75</span>
+        </label><label class="day" data-text="salmos 76–78" data-date="2027-03-27">
+            <input type="checkbox" data-day="200">
+            <span class="num">200</span>
+            <span class="date">27/03/2027</span>
+            <span class="reading">Salmos 76–78</span>
+        </label><label class="day" data-text="salmos 79–81" data-date="2027-03-28">
+            <input type="checkbox" data-day="201">
+            <span class="num">201</span>
+            <span class="date">28/03/2027</span>
+            <span class="reading">Salmos 79–81</span>
+        </label><label class="day" data-text="salmos 82–84" data-date="2027-03-29">
+            <input type="checkbox" data-day="202">
+            <span class="num">202</span>
+            <span class="date">29/03/2027</span>
+            <span class="reading">Salmos 82–84</span>
+        </label><label class="day" data-text="salmos 85–87" data-date="2027-03-30">
+            <input type="checkbox" data-day="203">
+            <span class="num">203</span>
+            <span class="date">30/03/2027</span>
+            <span class="reading">Salmos 85–87</span>
+        </label><label class="day" data-text="salmos 88–90" data-date="2027-03-31">
+            <input type="checkbox" data-day="204">
+            <span class="num">204</span>
+            <span class="date">31/03/2027</span>
+            <span class="reading">Salmos 88–90</span>
+        </label><label class="day" data-text="salmos 91–93" data-date="2027-04-01">
+            <input type="checkbox" data-day="205">
+            <span class="num">205</span>
+            <span class="date">01/04/2027</span>
+            <span class="reading">Salmos 91–93</span>
+        </label><label class="day" data-text="salmos 94–96" data-date="2027-04-02">
+            <input type="checkbox" data-day="206">
+            <span class="num">206</span>
+            <span class="date">02/04/2027</span>
+            <span class="reading">Salmos 94–96</span>
+        </label><label class="day" data-text="salmos 97–99" data-date="2027-04-03">
+            <input type="checkbox" data-day="207">
+            <span class="num">207</span>
+            <span class="date">03/04/2027</span>
+            <span class="reading">Salmos 97–99</span>
+        </label><label class="day" data-text="salmos 100–102" data-date="2027-04-04">
+            <input type="checkbox" data-day="208">
+            <span class="num">208</span>
+            <span class="date">04/04/2027</span>
+            <span class="reading">Salmos 100–102</span>
+        </label><label class="day" data-text="salmos 103–105" data-date="2027-04-05">
+            <input type="checkbox" data-day="209">
+            <span class="num">209</span>
+            <span class="date">05/04/2027</span>
+            <span class="reading">Salmos 103–105</span>
+        </label><label class="day" data-text="salmos 106–108" data-date="2027-04-06">
+            <input type="checkbox" data-day="210">
+            <span class="num">210</span>
+            <span class="date">06/04/2027</span>
+            <span class="reading">Salmos 106–108</span>
+        </label><label class="day" data-text="salmos 109–111" data-date="2027-04-07">
+            <input type="checkbox" data-day="211">
+            <span class="num">211</span>
+            <span class="date">07/04/2027</span>
+            <span class="reading">Salmos 109–111</span>
+        </label><label class="day" data-text="salmos 112–114" data-date="2027-04-08">
+            <input type="checkbox" data-day="212">
+            <span class="num">212</span>
+            <span class="date">08/04/2027</span>
+            <span class="reading">Salmos 112–114</span>
+        </label><label class="day" data-text="salmos 115–117" data-date="2027-04-09">
+            <input type="checkbox" data-day="213">
+            <span class="num">213</span>
+            <span class="date">09/04/2027</span>
+            <span class="reading">Salmos 115–117</span>
+        </label><label class="day" data-text="salmos 118–120" data-date="2027-04-10">
+            <input type="checkbox" data-day="214">
+            <span class="num">214</span>
+            <span class="date">10/04/2027</span>
+            <span class="reading">Salmos 118–120</span>
+        </label><label class="day" data-text="salmos 121–123" data-date="2027-04-11">
+            <input type="checkbox" data-day="215">
+            <span class="num">215</span>
+            <span class="date">11/04/2027</span>
+            <span class="reading">Salmos 121–123</span>
+        </label><label class="day" data-text="salmos 124–126" data-date="2027-04-12">
+            <input type="checkbox" data-day="216">
+            <span class="num">216</span>
+            <span class="date">12/04/2027</span>
+            <span class="reading">Salmos 124–126</span>
+        </label><label class="day" data-text="salmos 127–129" data-date="2027-04-13">
+            <input type="checkbox" data-day="217">
+            <span class="num">217</span>
+            <span class="date">13/04/2027</span>
+            <span class="reading">Salmos 127–129</span>
+        </label><label class="day" data-text="salmos 130–132" data-date="2027-04-14">
+            <input type="checkbox" data-day="218">
+            <span class="num">218</span>
+            <span class="date">14/04/2027</span>
+            <span class="reading">Salmos 130–132</span>
+        </label><label class="day" data-text="salmos 133–135" data-date="2027-04-15">
+            <input type="checkbox" data-day="219">
+            <span class="num">219</span>
+            <span class="date">15/04/2027</span>
+            <span class="reading">Salmos 133–135</span>
+        </label><label class="day" data-text="salmos 136–138" data-date="2027-04-16">
+            <input type="checkbox" data-day="220">
+            <span class="num">220</span>
+            <span class="date">16/04/2027</span>
+            <span class="reading">Salmos 136–138</span>
+        </label><label class="day" data-text="salmos 139–141" data-date="2027-04-17">
+            <input type="checkbox" data-day="221">
+            <span class="num">221</span>
+            <span class="date">17/04/2027</span>
+            <span class="reading">Salmos 139–141</span>
+        </label><label class="day" data-text="salmos 142–144" data-date="2027-04-18">
+            <input type="checkbox" data-day="222">
+            <span class="num">222</span>
+            <span class="date">18/04/2027</span>
+            <span class="reading">Salmos 142–144</span>
+        </label><label class="day" data-text="salmos 145–147" data-date="2027-04-19">
+            <input type="checkbox" data-day="223">
+            <span class="num">223</span>
+            <span class="date">19/04/2027</span>
+            <span class="reading">Salmos 145–147</span>
+        </label><label class="day" data-text="salmos 148–150" data-date="2027-04-20">
+            <input type="checkbox" data-day="224">
+            <span class="num">224</span>
+            <span class="date">20/04/2027</span>
+            <span class="reading">Salmos 148–150</span>
+        </label><label class="day" data-text="proverbios 1–3" data-date="2027-04-21">
+            <input type="checkbox" data-day="225">
+            <span class="num">225</span>
+            <span class="date">21/04/2027</span>
+            <span class="reading">Proverbios 1–3</span>
+        </label><label class="day" data-text="proverbios 4–6" data-date="2027-04-22">
+            <input type="checkbox" data-day="226">
+            <span class="num">226</span>
+            <span class="date">22/04/2027</span>
+            <span class="reading">Proverbios 4–6</span>
+        </label><label class="day" data-text="proverbios 7–9" data-date="2027-04-23">
+            <input type="checkbox" data-day="227">
+            <span class="num">227</span>
+            <span class="date">23/04/2027</span>
+            <span class="reading">Proverbios 7–9</span>
+        </label><label class="day" data-text="proverbios 10–12" data-date="2027-04-24">
+            <input type="checkbox" data-day="228">
+            <span class="num">228</span>
+            <span class="date">24/04/2027</span>
+            <span class="reading">Proverbios 10–12</span>
+        </label><label class="day" data-text="proverbios 13–15" data-date="2027-04-25">
+            <input type="checkbox" data-day="229">
+            <span class="num">229</span>
+            <span class="date">25/04/2027</span>
+            <span class="reading">Proverbios 13–15</span>
+        </label><label class="day" data-text="proverbios 16–18" data-date="2027-04-26">
+            <input type="checkbox" data-day="230">
+            <span class="num">230</span>
+            <span class="date">26/04/2027</span>
+            <span class="reading">Proverbios 16–18</span>
+        </label><label class="day" data-text="proverbios 19–21" data-date="2027-04-27">
+            <input type="checkbox" data-day="231">
+            <span class="num">231</span>
+            <span class="date">27/04/2027</span>
+            <span class="reading">Proverbios 19–21</span>
+        </label><label class="day" data-text="proverbios 22–24" data-date="2027-04-28">
+            <input type="checkbox" data-day="232">
+            <span class="num">232</span>
+            <span class="date">28/04/2027</span>
+            <span class="reading">Proverbios 22–24</span>
+        </label><label class="day" data-text="proverbios 25–27" data-date="2027-04-29">
+            <input type="checkbox" data-day="233">
+            <span class="num">233</span>
+            <span class="date">29/04/2027</span>
+            <span class="reading">Proverbios 25–27</span>
+        </label><label class="day" data-text="proverbios 28–30" data-date="2027-04-30">
+            <input type="checkbox" data-day="234">
+            <span class="num">234</span>
+            <span class="date">30/04/2027</span>
+            <span class="reading">Proverbios 28–30</span>
+        </label><label class="day" data-text="proverbios 31 + eclesiastés 1–2" data-date="2027-05-01">
+            <input type="checkbox" data-day="235">
+            <span class="num">235</span>
+            <span class="date">01/05/2027</span>
+            <span class="reading">Proverbios 31 + Eclesiastés 1–2</span>
+        </label><label class="day" data-text="eclesiastés 3–5" data-date="2027-05-02">
+            <input type="checkbox" data-day="236">
+            <span class="num">236</span>
+            <span class="date">02/05/2027</span>
+            <span class="reading">Eclesiastés 3–5</span>
+        </label><label class="day" data-text="eclesiastés 6–8" data-date="2027-05-03">
+            <input type="checkbox" data-day="237">
+            <span class="num">237</span>
+            <span class="date">03/05/2027</span>
+            <span class="reading">Eclesiastés 6–8</span>
+        </label><label class="day" data-text="eclesiastés 9–11" data-date="2027-05-04">
+            <input type="checkbox" data-day="238">
+            <span class="num">238</span>
+            <span class="date">04/05/2027</span>
+            <span class="reading">Eclesiastés 9–11</span>
+        </label><label class="day" data-text="eclesiastés 12 + cantares 1–2" data-date="2027-05-05">
+            <input type="checkbox" data-day="239">
+            <span class="num">239</span>
+            <span class="date">05/05/2027</span>
+            <span class="reading">Eclesiastés 12 + Cantares 1–2</span>
+        </label><label class="day" data-text="cantares 3–5" data-date="2027-05-06">
+            <input type="checkbox" data-day="240">
+            <span class="num">240</span>
+            <span class="date">06/05/2027</span>
+            <span class="reading">Cantares 3–5</span>
+        </label><label class="day" data-text="cantares 6–8" data-date="2027-05-07">
+            <input type="checkbox" data-day="241">
+            <span class="num">241</span>
+            <span class="date">07/05/2027</span>
+            <span class="reading">Cantares 6–8</span>
+        </label><label class="day" data-text="isaías 1–3" data-date="2027-05-08">
+            <input type="checkbox" data-day="242">
+            <span class="num">242</span>
+            <span class="date">08/05/2027</span>
+            <span class="reading">Isaías 1–3</span>
+        </label><label class="day" data-text="isaías 4–6" data-date="2027-05-09">
+            <input type="checkbox" data-day="243">
+            <span class="num">243</span>
+            <span class="date">09/05/2027</span>
+            <span class="reading">Isaías 4–6</span>
+        </label><label class="day" data-text="isaías 7–9" data-date="2027-05-10">
+            <input type="checkbox" data-day="244">
+            <span class="num">244</span>
+            <span class="date">10/05/2027</span>
+            <span class="reading">Isaías 7–9</span>
+        </label><label class="day" data-text="isaías 10–12" data-date="2027-05-11">
+            <input type="checkbox" data-day="245">
+            <span class="num">245</span>
+            <span class="date">11/05/2027</span>
+            <span class="reading">Isaías 10–12</span>
+        </label><label class="day" data-text="isaías 13–15" data-date="2027-05-12">
+            <input type="checkbox" data-day="246">
+            <span class="num">246</span>
+            <span class="date">12/05/2027</span>
+            <span class="reading">Isaías 13–15</span>
+        </label><label class="day" data-text="isaías 16–18" data-date="2027-05-13">
+            <input type="checkbox" data-day="247">
+            <span class="num">247</span>
+            <span class="date">13/05/2027</span>
+            <span class="reading">Isaías 16–18</span>
+        </label><label class="day" data-text="isaías 19–21" data-date="2027-05-14">
+            <input type="checkbox" data-day="248">
+            <span class="num">248</span>
+            <span class="date">14/05/2027</span>
+            <span class="reading">Isaías 19–21</span>
+        </label><label class="day" data-text="isaías 22–24" data-date="2027-05-15">
+            <input type="checkbox" data-day="249">
+            <span class="num">249</span>
+            <span class="date">15/05/2027</span>
+            <span class="reading">Isaías 22–24</span>
+        </label><label class="day" data-text="isaías 25–27" data-date="2027-05-16">
+            <input type="checkbox" data-day="250">
+            <span class="num">250</span>
+            <span class="date">16/05/2027</span>
+            <span class="reading">Isaías 25–27</span>
+        </label><label class="day" data-text="isaías 28–30" data-date="2027-05-17">
+            <input type="checkbox" data-day="251">
+            <span class="num">251</span>
+            <span class="date">17/05/2027</span>
+            <span class="reading">Isaías 28–30</span>
+        </label><label class="day" data-text="isaías 31–33" data-date="2027-05-18">
+            <input type="checkbox" data-day="252">
+            <span class="num">252</span>
+            <span class="date">18/05/2027</span>
+            <span class="reading">Isaías 31–33</span>
+        </label><label class="day" data-text="isaías 34–36" data-date="2027-05-19">
+            <input type="checkbox" data-day="253">
+            <span class="num">253</span>
+            <span class="date">19/05/2027</span>
+            <span class="reading">Isaías 34–36</span>
+        </label><label class="day" data-text="isaías 37–39" data-date="2027-05-20">
+            <input type="checkbox" data-day="254">
+            <span class="num">254</span>
+            <span class="date">20/05/2027</span>
+            <span class="reading">Isaías 37–39</span>
+        </label><label class="day" data-text="isaías 40–42" data-date="2027-05-21">
+            <input type="checkbox" data-day="255">
+            <span class="num">255</span>
+            <span class="date">21/05/2027</span>
+            <span class="reading">Isaías 40–42</span>
+        </label><label class="day" data-text="isaías 43–45" data-date="2027-05-22">
+            <input type="checkbox" data-day="256">
+            <span class="num">256</span>
+            <span class="date">22/05/2027</span>
+            <span class="reading">Isaías 43–45</span>
+        </label><label class="day" data-text="isaías 46–48" data-date="2027-05-23">
+            <input type="checkbox" data-day="257">
+            <span class="num">257</span>
+            <span class="date">23/05/2027</span>
+            <span class="reading">Isaías 46–48</span>
+        </label><label class="day" data-text="isaías 49–51" data-date="2027-05-24">
+            <input type="checkbox" data-day="258">
+            <span class="num">258</span>
+            <span class="date">24/05/2027</span>
+            <span class="reading">Isaías 49–51</span>
+        </label><label class="day" data-text="isaías 52–54" data-date="2027-05-25">
+            <input type="checkbox" data-day="259">
+            <span class="num">259</span>
+            <span class="date">25/05/2027</span>
+            <span class="reading">Isaías 52–54</span>
+        </label><label class="day" data-text="isaías 55–57" data-date="2027-05-26">
+            <input type="checkbox" data-day="260">
+            <span class="num">260</span>
+            <span class="date">26/05/2027</span>
+            <span class="reading">Isaías 55–57</span>
+        </label><label class="day" data-text="isaías 58–60" data-date="2027-05-27">
+            <input type="checkbox" data-day="261">
+            <span class="num">261</span>
+            <span class="date">27/05/2027</span>
+            <span class="reading">Isaías 58–60</span>
+        </label><label class="day" data-text="isaías 61–63" data-date="2027-05-28">
+            <input type="checkbox" data-day="262">
+            <span class="num">262</span>
+            <span class="date">28/05/2027</span>
+            <span class="reading">Isaías 61–63</span>
+        </label><label class="day" data-text="isaías 64–66" data-date="2027-05-29">
+            <input type="checkbox" data-day="263">
+            <span class="num">263</span>
+            <span class="date">29/05/2027</span>
+            <span class="reading">Isaías 64–66</span>
+        </label><label class="day" data-text="jeremías 1–3" data-date="2027-05-30">
+            <input type="checkbox" data-day="264">
+            <span class="num">264</span>
+            <span class="date">30/05/2027</span>
+            <span class="reading">Jeremías 1–3</span>
+        </label><label class="day" data-text="jeremías 4–6" data-date="2027-05-31">
+            <input type="checkbox" data-day="265">
+            <span class="num">265</span>
+            <span class="date">31/05/2027</span>
+            <span class="reading">Jeremías 4–6</span>
+        </label><label class="day" data-text="jeremías 7–9" data-date="2027-06-01">
+            <input type="checkbox" data-day="266">
+            <span class="num">266</span>
+            <span class="date">01/06/2027</span>
+            <span class="reading">Jeremías 7–9</span>
+        </label><label class="day" data-text="jeremías 10–12" data-date="2027-06-02">
+            <input type="checkbox" data-day="267">
+            <span class="num">267</span>
+            <span class="date">02/06/2027</span>
+            <span class="reading">Jeremías 10–12</span>
+        </label><label class="day" data-text="jeremías 13–15" data-date="2027-06-03">
+            <input type="checkbox" data-day="268">
+            <span class="num">268</span>
+            <span class="date">03/06/2027</span>
+            <span class="reading">Jeremías 13–15</span>
+        </label><label class="day" data-text="jeremías 16–18" data-date="2027-06-04">
+            <input type="checkbox" data-day="269">
+            <span class="num">269</span>
+            <span class="date">04/06/2027</span>
+            <span class="reading">Jeremías 16–18</span>
+        </label><label class="day" data-text="jeremías 19–21" data-date="2027-06-05">
+            <input type="checkbox" data-day="270">
+            <span class="num">270</span>
+            <span class="date">05/06/2027</span>
+            <span class="reading">Jeremías 19–21</span>
+        </label><label class="day" data-text="jeremías 22–24" data-date="2027-06-06">
+            <input type="checkbox" data-day="271">
+            <span class="num">271</span>
+            <span class="date">06/06/2027</span>
+            <span class="reading">Jeremías 22–24</span>
+        </label><label class="day" data-text="jeremías 25–27" data-date="2027-06-07">
+            <input type="checkbox" data-day="272">
+            <span class="num">272</span>
+            <span class="date">07/06/2027</span>
+            <span class="reading">Jeremías 25–27</span>
+        </label><label class="day" data-text="jeremías 28–30" data-date="2027-06-08">
+            <input type="checkbox" data-day="273">
+            <span class="num">273</span>
+            <span class="date">08/06/2027</span>
+            <span class="reading">Jeremías 28–30</span>
+        </label><label class="day" data-text="jeremías 31–33" data-date="2027-06-09">
+            <input type="checkbox" data-day="274">
+            <span class="num">274</span>
+            <span class="date">09/06/2027</span>
+            <span class="reading">Jeremías 31–33</span>
+        </label><label class="day" data-text="jeremías 34–36" data-date="2027-06-10">
+            <input type="checkbox" data-day="275">
+            <span class="num">275</span>
+            <span class="date">10/06/2027</span>
+            <span class="reading">Jeremías 34–36</span>
+        </label><label class="day" data-text="jeremías 37–39" data-date="2027-06-11">
+            <input type="checkbox" data-day="276">
+            <span class="num">276</span>
+            <span class="date">11/06/2027</span>
+            <span class="reading">Jeremías 37–39</span>
+        </label><label class="day" data-text="jeremías 40–42" data-date="2027-06-12">
+            <input type="checkbox" data-day="277">
+            <span class="num">277</span>
+            <span class="date">12/06/2027</span>
+            <span class="reading">Jeremías 40–42</span>
+        </label><label class="day" data-text="jeremías 43–45" data-date="2027-06-13">
+            <input type="checkbox" data-day="278">
+            <span class="num">278</span>
+            <span class="date">13/06/2027</span>
+            <span class="reading">Jeremías 43–45</span>
+        </label><label class="day" data-text="jeremías 46–48" data-date="2027-06-14">
+            <input type="checkbox" data-day="279">
+            <span class="num">279</span>
+            <span class="date">14/06/2027</span>
+            <span class="reading">Jeremías 46–48</span>
+        </label><label class="day" data-text="jeremías 49–51" data-date="2027-06-15">
+            <input type="checkbox" data-day="280">
+            <span class="num">280</span>
+            <span class="date">15/06/2027</span>
+            <span class="reading">Jeremías 49–51</span>
+        </label><label class="day" data-text="jeremías 52 + lamentaciones 1–2" data-date="2027-06-16">
+            <input type="checkbox" data-day="281">
+            <span class="num">281</span>
+            <span class="date">16/06/2027</span>
+            <span class="reading">Jeremías 52 + Lamentaciones 1–2</span>
+        </label><label class="day" data-text="lamentaciones 3–5" data-date="2027-06-17">
+            <input type="checkbox" data-day="282">
+            <span class="num">282</span>
+            <span class="date">17/06/2027</span>
+            <span class="reading">Lamentaciones 3–5</span>
+        </label><label class="day" data-text="ezequiel 1–3" data-date="2027-06-18">
+            <input type="checkbox" data-day="283">
+            <span class="num">283</span>
+            <span class="date">18/06/2027</span>
+            <span class="reading">Ezequiel 1–3</span>
+        </label><label class="day" data-text="ezequiel 4–6" data-date="2027-06-19">
+            <input type="checkbox" data-day="284">
+            <span class="num">284</span>
+            <span class="date">19/06/2027</span>
+            <span class="reading">Ezequiel 4–6</span>
+        </label><label class="day" data-text="ezequiel 7–9" data-date="2027-06-20">
+            <input type="checkbox" data-day="285">
+            <span class="num">285</span>
+            <span class="date">20/06/2027</span>
+            <span class="reading">Ezequiel 7–9</span>
+        </label><label class="day" data-text="ezequiel 10–12" data-date="2027-06-21">
+            <input type="checkbox" data-day="286">
+            <span class="num">286</span>
+            <span class="date">21/06/2027</span>
+            <span class="reading">Ezequiel 10–12</span>
+        </label><label class="day" data-text="ezequiel 13–15" data-date="2027-06-22">
+            <input type="checkbox" data-day="287">
+            <span class="num">287</span>
+            <span class="date">22/06/2027</span>
+            <span class="reading">Ezequiel 13–15</span>
+        </label><label class="day" data-text="ezequiel 16–18" data-date="2027-06-23">
+            <input type="checkbox" data-day="288">
+            <span class="num">288</span>
+            <span class="date">23/06/2027</span>
+            <span class="reading">Ezequiel 16–18</span>
+        </label><label class="day" data-text="ezequiel 19–21" data-date="2027-06-24">
+            <input type="checkbox" data-day="289">
+            <span class="num">289</span>
+            <span class="date">24/06/2027</span>
+            <span class="reading">Ezequiel 19–21</span>
+        </label><label class="day" data-text="ezequiel 22–24" data-date="2027-06-25">
+            <input type="checkbox" data-day="290">
+            <span class="num">290</span>
+            <span class="date">25/06/2027</span>
+            <span class="reading">Ezequiel 22–24</span>
+        </label><label class="day" data-text="ezequiel 25–27" data-date="2027-06-26">
+            <input type="checkbox" data-day="291">
+            <span class="num">291</span>
+            <span class="date">26/06/2027</span>
+            <span class="reading">Ezequiel 25–27</span>
+        </label><label class="day" data-text="ezequiel 28–30" data-date="2027-06-27">
+            <input type="checkbox" data-day="292">
+            <span class="num">292</span>
+            <span class="date">27/06/2027</span>
+            <span class="reading">Ezequiel 28–30</span>
+        </label><label class="day" data-text="ezequiel 31–33" data-date="2027-06-28">
+            <input type="checkbox" data-day="293">
+            <span class="num">293</span>
+            <span class="date">28/06/2027</span>
+            <span class="reading">Ezequiel 31–33</span>
+        </label><label class="day" data-text="ezequiel 34–36" data-date="2027-06-29">
+            <input type="checkbox" data-day="294">
+            <span class="num">294</span>
+            <span class="date">29/06/2027</span>
+            <span class="reading">Ezequiel 34–36</span>
+        </label><label class="day" data-text="ezequiel 37–39" data-date="2027-06-30">
+            <input type="checkbox" data-day="295">
+            <span class="num">295</span>
+            <span class="date">30/06/2027</span>
+            <span class="reading">Ezequiel 37–39</span>
+        </label><label class="day" data-text="ezequiel 40–42" data-date="2027-07-01">
+            <input type="checkbox" data-day="296">
+            <span class="num">296</span>
+            <span class="date">01/07/2027</span>
+            <span class="reading">Ezequiel 40–42</span>
+        </label><label class="day" data-text="ezequiel 43–45" data-date="2027-07-02">
+            <input type="checkbox" data-day="297">
+            <span class="num">297</span>
+            <span class="date">02/07/2027</span>
+            <span class="reading">Ezequiel 43–45</span>
+        </label><label class="day" data-text="ezequiel 46–48" data-date="2027-07-03">
+            <input type="checkbox" data-day="298">
+            <span class="num">298</span>
+            <span class="date">03/07/2027</span>
+            <span class="reading">Ezequiel 46–48</span>
+        </label><label class="day" data-text="daniel 1–3" data-date="2027-07-04">
+            <input type="checkbox" data-day="299">
+            <span class="num">299</span>
+            <span class="date">04/07/2027</span>
+            <span class="reading">Daniel 1–3</span>
+        </label><label class="day" data-text="daniel 4–6" data-date="2027-07-05">
+            <input type="checkbox" data-day="300">
+            <span class="num">300</span>
+            <span class="date">05/07/2027</span>
+            <span class="reading">Daniel 4–6</span>
+        </label><label class="day" data-text="daniel 7–9" data-date="2027-07-06">
+            <input type="checkbox" data-day="301">
+            <span class="num">301</span>
+            <span class="date">06/07/2027</span>
+            <span class="reading">Daniel 7–9</span>
+        </label><label class="day" data-text="daniel 10–12" data-date="2027-07-07">
+            <input type="checkbox" data-day="302">
+            <span class="num">302</span>
+            <span class="date">07/07/2027</span>
+            <span class="reading">Daniel 10–12</span>
+        </label><label class="day" data-text="oseas 1–3" data-date="2027-07-08">
+            <input type="checkbox" data-day="303">
+            <span class="num">303</span>
+            <span class="date">08/07/2027</span>
+            <span class="reading">Oseas 1–3</span>
+        </label><label class="day" data-text="oseas 4–6" data-date="2027-07-09">
+            <input type="checkbox" data-day="304">
+            <span class="num">304</span>
+            <span class="date">09/07/2027</span>
+            <span class="reading">Oseas 4–6</span>
+        </label><label class="day" data-text="oseas 7–9" data-date="2027-07-10">
+            <input type="checkbox" data-day="305">
+            <span class="num">305</span>
+            <span class="date">10/07/2027</span>
+            <span class="reading">Oseas 7–9</span>
+        </label><label class="day" data-text="oseas 10–12" data-date="2027-07-11">
+            <input type="checkbox" data-day="306">
+            <span class="num">306</span>
+            <span class="date">11/07/2027</span>
+            <span class="reading">Oseas 10–12</span>
+        </label><label class="day" data-text="oseas 13–14 + joel 1" data-date="2027-07-12">
+            <input type="checkbox" data-day="307">
+            <span class="num">307</span>
+            <span class="date">12/07/2027</span>
+            <span class="reading">Oseas 13–14 + Joel 1</span>
+        </label><label class="day" data-text="joel 2–3 + amós 1" data-date="2027-07-13">
+            <input type="checkbox" data-day="308">
+            <span class="num">308</span>
+            <span class="date">13/07/2027</span>
+            <span class="reading">Joel 2–3 + Amós 1</span>
+        </label><label class="day" data-text="amós 2–4" data-date="2027-07-14">
+            <input type="checkbox" data-day="309">
+            <span class="num">309</span>
+            <span class="date">14/07/2027</span>
+            <span class="reading">Amós 2–4</span>
+        </label><label class="day" data-text="amós 5–7" data-date="2027-07-15">
+            <input type="checkbox" data-day="310">
+            <span class="num">310</span>
+            <span class="date">15/07/2027</span>
+            <span class="reading">Amós 5–7</span>
+        </label><label class="day" data-text="amós 8–9 + abdías 1" data-date="2027-07-16">
+            <input type="checkbox" data-day="311">
+            <span class="num">311</span>
+            <span class="date">16/07/2027</span>
+            <span class="reading">Amós 8–9 + Abdías 1</span>
+        </label><label class="day" data-text="jonás 1–3" data-date="2027-07-17">
+            <input type="checkbox" data-day="312">
+            <span class="num">312</span>
+            <span class="date">17/07/2027</span>
+            <span class="reading">Jonás 1–3</span>
+        </label><label class="day" data-text="jonás 4 + miqueas 1–2" data-date="2027-07-18">
+            <input type="checkbox" data-day="313">
+            <span class="num">313</span>
+            <span class="date">18/07/2027</span>
+            <span class="reading">Jonás 4 + Miqueas 1–2</span>
+        </label><label class="day" data-text="miqueas 3–5" data-date="2027-07-19">
+            <input type="checkbox" data-day="314">
+            <span class="num">314</span>
+            <span class="date">19/07/2027</span>
+            <span class="reading">Miqueas 3–5</span>
+        </label><label class="day" data-text="miqueas 6–7 + nahúm 1" data-date="2027-07-20">
+            <input type="checkbox" data-day="315">
+            <span class="num">315</span>
+            <span class="date">20/07/2027</span>
+            <span class="reading">Miqueas 6–7 + Nahúm 1</span>
+        </label><label class="day" data-text="nahúm 2–3 + habacuc 1" data-date="2027-07-21">
+            <input type="checkbox" data-day="316">
+            <span class="num">316</span>
+            <span class="date">21/07/2027</span>
+            <span class="reading">Nahúm 2–3 + Habacuc 1</span>
+        </label><label class="day" data-text="habacuc 2–3 + sofonías 1" data-date="2027-07-22">
+            <input type="checkbox" data-day="317">
+            <span class="num">317</span>
+            <span class="date">22/07/2027</span>
+            <span class="reading">Habacuc 2–3 + Sofonías 1</span>
+        </label><label class="day" data-text="sofonías 2–3 + hageo 1" data-date="2027-07-23">
+            <input type="checkbox" data-day="318">
+            <span class="num">318</span>
+            <span class="date">23/07/2027</span>
+            <span class="reading">Sofonías 2–3 + Hageo 1</span>
+        </label><label class="day" data-text="hageo 2 + zacarías 1–2" data-date="2027-07-24">
+            <input type="checkbox" data-day="319">
+            <span class="num">319</span>
+            <span class="date">24/07/2027</span>
+            <span class="reading">Hageo 2 + Zacarías 1–2</span>
+        </label><label class="day" data-text="zacarías 3–5" data-date="2027-07-25">
+            <input type="checkbox" data-day="320">
+            <span class="num">320</span>
+            <span class="date">25/07/2027</span>
+            <span class="reading">Zacarías 3–5</span>
+        </label><label class="day" data-text="zacarías 6–8" data-date="2027-07-26">
+            <input type="checkbox" data-day="321">
+            <span class="num">321</span>
+            <span class="date">26/07/2027</span>
+            <span class="reading">Zacarías 6–8</span>
+        </label><label class="day" data-text="zacarías 9–11" data-date="2027-07-27">
+            <input type="checkbox" data-day="322">
+            <span class="num">322</span>
+            <span class="date">27/07/2027</span>
+            <span class="reading">Zacarías 9–11</span>
+        </label><label class="day" data-text="zacarías 12–14" data-date="2027-07-28">
+            <input type="checkbox" data-day="323">
+            <span class="num">323</span>
+            <span class="date">28/07/2027</span>
+            <span class="reading">Zacarías 12–14</span>
+        </label><label class="day" data-text="malaquías 1–3" data-date="2027-07-29">
+            <input type="checkbox" data-day="324">
+            <span class="num">324</span>
+            <span class="date">29/07/2027</span>
+            <span class="reading">Malaquías 1–3</span>
+        </label><label class="day" data-text="malaquías 4 + romanos 1–2" data-date="2027-07-30">
+            <input type="checkbox" data-day="325">
+            <span class="num">325</span>
+            <span class="date">30/07/2027</span>
+            <span class="reading">Malaquías 4 + Romanos 1–2</span>
+        </label><label class="day" data-text="romanos 3–5" data-date="2027-07-31">
+            <input type="checkbox" data-day="326">
+            <span class="num">326</span>
+            <span class="date">31/07/2027</span>
+            <span class="reading">Romanos 3–5</span>
+        </label><label class="day" data-text="romanos 6–8" data-date="2027-08-01">
+            <input type="checkbox" data-day="327">
+            <span class="num">327</span>
+            <span class="date">01/08/2027</span>
+            <span class="reading">Romanos 6–8</span>
+        </label><label class="day" data-text="romanos 9–11" data-date="2027-08-02">
+            <input type="checkbox" data-day="328">
+            <span class="num">328</span>
+            <span class="date">02/08/2027</span>
+            <span class="reading">Romanos 9–11</span>
+        </label><label class="day" data-text="romanos 12–14" data-date="2027-08-03">
+            <input type="checkbox" data-day="329">
+            <span class="num">329</span>
+            <span class="date">03/08/2027</span>
+            <span class="reading">Romanos 12–14</span>
+        </label><label class="day" data-text="romanos 15–16 + 1 corintios 1" data-date="2027-08-04">
+            <input type="checkbox" data-day="330">
+            <span class="num">330</span>
+            <span class="date">04/08/2027</span>
+            <span class="reading">Romanos 15–16 + 1 Corintios 1</span>
+        </label><label class="day" data-text="1 corintios 2–4" data-date="2027-08-05">
+            <input type="checkbox" data-day="331">
+            <span class="num">331</span>
+            <span class="date">05/08/2027</span>
+            <span class="reading">1 Corintios 2–4</span>
+        </label><label class="day" data-text="1 corintios 5–7" data-date="2027-08-06">
+            <input type="checkbox" data-day="332">
+            <span class="num">332</span>
+            <span class="date">06/08/2027</span>
+            <span class="reading">1 Corintios 5–7</span>
+        </label><label class="day" data-text="1 corintios 8–10" data-date="2027-08-07">
+            <input type="checkbox" data-day="333">
+            <span class="num">333</span>
+            <span class="date">07/08/2027</span>
+            <span class="reading">1 Corintios 8–10</span>
+        </label><label class="day" data-text="1 corintios 11–13" data-date="2027-08-08">
+            <input type="checkbox" data-day="334">
+            <span class="num">334</span>
+            <span class="date">08/08/2027</span>
+            <span class="reading">1 Corintios 11–13</span>
+        </label><label class="day" data-text="1 corintios 14–16" data-date="2027-08-09">
+            <input type="checkbox" data-day="335">
+            <span class="num">335</span>
+            <span class="date">09/08/2027</span>
+            <span class="reading">1 Corintios 14–16</span>
+        </label><label class="day" data-text="2 corintios 1–3" data-date="2027-08-10">
+            <input type="checkbox" data-day="336">
+            <span class="num">336</span>
+            <span class="date">10/08/2027</span>
+            <span class="reading">2 Corintios 1–3</span>
+        </label><label class="day" data-text="2 corintios 4–6" data-date="2027-08-11">
+            <input type="checkbox" data-day="337">
+            <span class="num">337</span>
+            <span class="date">11/08/2027</span>
+            <span class="reading">2 Corintios 4–6</span>
+        </label><label class="day" data-text="2 corintios 7–9" data-date="2027-08-12">
+            <input type="checkbox" data-day="338">
+            <span class="num">338</span>
+            <span class="date">12/08/2027</span>
+            <span class="reading">2 Corintios 7–9</span>
+        </label><label class="day" data-text="2 corintios 10–12" data-date="2027-08-13">
+            <input type="checkbox" data-day="339">
+            <span class="num">339</span>
+            <span class="date">13/08/2027</span>
+            <span class="reading">2 Corintios 10–12</span>
+        </label><label class="day" data-text="2 corintios 13 + gálatas 1–2" data-date="2027-08-14">
+            <input type="checkbox" data-day="340">
+            <span class="num">340</span>
+            <span class="date">14/08/2027</span>
+            <span class="reading">2 Corintios 13 + Gálatas 1–2</span>
+        </label><label class="day" data-text="gálatas 3–5" data-date="2027-08-15">
+            <input type="checkbox" data-day="341">
+            <span class="num">341</span>
+            <span class="date">15/08/2027</span>
+            <span class="reading">Gálatas 3–5</span>
+        </label><label class="day" data-text="gálatas 6 + efesios 1–2" data-date="2027-08-16">
+            <input type="checkbox" data-day="342">
+            <span class="num">342</span>
+            <span class="date">16/08/2027</span>
+            <span class="reading">Gálatas 6 + Efesios 1–2</span>
+        </label><label class="day" data-text="efesios 3–5" data-date="2027-08-17">
+            <input type="checkbox" data-day="343">
+            <span class="num">343</span>
+            <span class="date">17/08/2027</span>
+            <span class="reading">Efesios 3–5</span>
+        </label><label class="day" data-text="efesios 6 + filipenses 1–2" data-date="2027-08-18">
+            <input type="checkbox" data-day="344">
+            <span class="num">344</span>
+            <span class="date">18/08/2027</span>
+            <span class="reading">Efesios 6 + Filipenses 1–2</span>
+        </label><label class="day" data-text="filipenses 3–4 + colosenses 1" data-date="2027-08-19">
+            <input type="checkbox" data-day="345">
+            <span class="num">345</span>
+            <span class="date">19/08/2027</span>
+            <span class="reading">Filipenses 3–4 + Colosenses 1</span>
+        </label><label class="day" data-text="colosenses 2–4" data-date="2027-08-20">
+            <input type="checkbox" data-day="346">
+            <span class="num">346</span>
+            <span class="date">20/08/2027</span>
+            <span class="reading">Colosenses 2–4</span>
+        </label><label class="day" data-text="1 tesalonicenses 1–3" data-date="2027-08-21">
+            <input type="checkbox" data-day="347">
+            <span class="num">347</span>
+            <span class="date">21/08/2027</span>
+            <span class="reading">1 Tesalonicenses 1–3</span>
+        </label><label class="day" data-text="1 tesalonicenses 4–5 + 2 tesalonicenses 1" data-date="2027-08-22">
+            <input type="checkbox" data-day="348">
+            <span class="num">348</span>
+            <span class="date">22/08/2027</span>
+            <span class="reading">1 Tesalonicenses 4–5 + 2 Tesalonicenses 1</span>
+        </label><label class="day" data-text="2 tesalonicenses 2–3 + 1 timoteo 1" data-date="2027-08-23">
+            <input type="checkbox" data-day="349">
+            <span class="num">349</span>
+            <span class="date">23/08/2027</span>
+            <span class="reading">2 Tesalonicenses 2–3 + 1 Timoteo 1</span>
+        </label><label class="day" data-text="1 timoteo 2–4" data-date="2027-08-24">
+            <input type="checkbox" data-day="350">
+            <span class="num">350</span>
+            <span class="date">24/08/2027</span>
+            <span class="reading">1 Timoteo 2–4</span>
+        </label><label class="day" data-text="1 timoteo 5–6 + 2 timoteo 1" data-date="2027-08-25">
+            <input type="checkbox" data-day="351">
+            <span class="num">351</span>
+            <span class="date">25/08/2027</span>
+            <span class="reading">1 Timoteo 5–6 + 2 Timoteo 1</span>
+        </label><label class="day" data-text="2 timoteo 2–4" data-date="2027-08-26">
+            <input type="checkbox" data-day="352">
+            <span class="num">352</span>
+            <span class="date">26/08/2027</span>
+            <span class="reading">2 Timoteo 2–4</span>
+        </label><label class="day" data-text="tito 1–3" data-date="2027-08-27">
+            <input type="checkbox" data-day="353">
+            <span class="num">353</span>
+            <span class="date">27/08/2027</span>
+            <span class="reading">Tito 1–3</span>
+        </label><label class="day" data-text="filemón 1 + hebreos 1–2" data-date="2027-08-28">
+            <input type="checkbox" data-day="354">
+            <span class="num">354</span>
+            <span class="date">28/08/2027</span>
+            <span class="reading">Filemón 1 + Hebreos 1–2</span>
+        </label><label class="day" data-text="hebreos 3–5" data-date="2027-08-29">
+            <input type="checkbox" data-day="355">
+            <span class="num">355</span>
+            <span class="date">29/08/2027</span>
+            <span class="reading">Hebreos 3–5</span>
+        </label><label class="day" data-text="hebreos 6–8" data-date="2027-08-30">
+            <input type="checkbox" data-day="356">
+            <span class="num">356</span>
+            <span class="date">30/08/2027</span>
+            <span class="reading">Hebreos 6–8</span>
+        </label><label class="day" data-text="hebreos 9–11" data-date="2027-08-31">
+            <input type="checkbox" data-day="357">
+            <span class="num">357</span>
+            <span class="date">31/08/2027</span>
+            <span class="reading">Hebreos 9–11</span>
+        </label><label class="day" data-text="hebreos 12–13 + apocalipsis 1" data-date="2027-09-01">
+            <input type="checkbox" data-day="358">
+            <span class="num">358</span>
+            <span class="date">01/09/2027</span>
+            <span class="reading">Hebreos 12–13 + Apocalipsis 1</span>
+        </label><label class="day" data-text="apocalipsis 2–4" data-date="2027-09-02">
+            <input type="checkbox" data-day="359">
+            <span class="num">359</span>
+            <span class="date">02/09/2027</span>
+            <span class="reading">Apocalipsis 2–4</span>
+        </label><label class="day" data-text="apocalipsis 5–7" data-date="2027-09-03">
+            <input type="checkbox" data-day="360">
+            <span class="num">360</span>
+            <span class="date">03/09/2027</span>
+            <span class="reading">Apocalipsis 5–7</span>
+        </label><label class="day" data-text="apocalipsis 8–10" data-date="2027-09-04">
+            <input type="checkbox" data-day="361">
+            <span class="num">361</span>
+            <span class="date">04/09/2027</span>
+            <span class="reading">Apocalipsis 8–10</span>
+        </label><label class="day" data-text="apocalipsis 11–13" data-date="2027-09-05">
+            <input type="checkbox" data-day="362">
+            <span class="num">362</span>
+            <span class="date">05/09/2027</span>
+            <span class="reading">Apocalipsis 11–13</span>
+        </label><label class="day" data-text="apocalipsis 14–16" data-date="2027-09-06">
+            <input type="checkbox" data-day="363">
+            <span class="num">363</span>
+            <span class="date">06/09/2027</span>
+            <span class="reading">Apocalipsis 14–16</span>
+        </label><label class="day" data-text="apocalipsis 17–19" data-date="2027-09-07">
+            <input type="checkbox" data-day="364">
+            <span class="num">364</span>
+            <span class="date">07/09/2027</span>
+            <span class="reading">Apocalipsis 17–19</span>
+        </label><label class="day" data-text="apocalipsis 20–22" data-date="2027-09-08">
+            <input type="checkbox" data-day="365">
+            <span class="num">365</span>
+            <span class="date">08/09/2027</span>
+            <span class="reading">Apocalipsis 20–22</span>
+        </label></main>
+</div>
+<script>
+const checks=[...document.querySelectorAll('input[type=checkbox]')];
+const bar=document.getElementById('bar'), count=document.getElementById('count'), pct=document.getElementById('pct');
+const key='biblia-365-plan-v1';
+let saved=JSON.parse(localStorage.getItem(key)||'{}');
+function update(){
+  let done=0;
+  checks.forEach(c=>{
+    const on=!!saved[c.dataset.day]; c.checked=on;
+    c.closest('.day').classList.toggle('done',on);
+    if(on) done++;
+  });
+  const p=Math.round(done/checks.length*100);
+  bar.style.width=p+'%'; count.textContent=done+' de '+checks.length+' días'; pct.textContent=p+'%';
+  localStorage.setItem(key,JSON.stringify(saved));
+}
+checks.forEach(c=>c.addEventListener('change',()=>{ saved[c.dataset.day]=c.checked; if(!c.checked) delete saved[c.dataset.day]; update(); }));
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.day').forEach(x=>x.style.display=(!q || x.dataset.text.includes(q) || x.querySelector('.num').textContent===q)?'grid':'none');
+});
+document.getElementById('today').onclick=()=>{
+  const iso=new Date().toLocaleDateString('en-CA');
+  const el=document.querySelector('.day[data-date="'+iso+'"]');
+  if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('today'); setTimeout(()=>el.classList.remove('today'),2500); }
+};
+document.getElementById('reset').onclick=()=>{ if(confirm('¿Reiniciar todo el progreso?')){ saved={}; update(); } };
+update();
+</script>
+</body>
+</html>
